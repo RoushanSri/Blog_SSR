@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<div class="max-w-3xl mx-auto w-full px-4 sm:px-0">
+    <div id="notReaderMessage" class="animate-fade-in">
+        <div class="max-w-lg mx-auto text-center py-16">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#7E43E2]/10 to-[#FF714D]/10 flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-[#7E43E2]/60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+            </div>
+            <h2 class="text-2xl font-extrabold text-slate-800 font-[Georgia] mb-3"><%= requiredRole %> Access Required</h2>
+            <p class="text-slate-500 mb-8 max-w-sm mx-auto">You need <%= requiredRole %> permissions to access this page. Request access and an admin will review your request.</p>
+            <a href="/settings#request-role" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-[#7E43E2] to-[#9B59E8] hover:from-[#6E35D0] hover:to-[#8B49D8] shadow-md shadow-[#7E43E2]/25 transition-all duration-300 hover:shadow-lg hover:shadow-[#7E43E2]/30 hover:-translate-y-0.5 cursor-pointer">
+                Request <%= requiredRole %> Access in Settings
+            </a>
+            <div class="mt-6">
+                <a href="/" class="text-sm text-slate-400 hover:text-[#7E43E2] transition-colors">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

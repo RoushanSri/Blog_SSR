@@ -48,6 +48,11 @@ router.get("/register", (req, res) => {
 });
 
 router.get("/create-blog", (req, res) => {
+    if (!res.locals.user) return res.redirect("/login");
+    const hasWriterAccess = res.locals.roles && (res.locals.roles.includes("WRITER") || res.locals.roles.includes("ADMIN") || res.locals.roles.includes("SUPER_ADMIN"));
+    if (!hasWriterAccess) {
+        return res.render("access-denied", { title: "Access Denied", requiredRole: "Writer" });
+    }
     res.render("create-blog", { title: "Create Blog" });
 });
 
@@ -63,6 +68,10 @@ router.get("/settings", (req, res) => {
 
 router.get("/my-blogs", async (req, res) => {
     if (!res.locals.user) return res.redirect("/login");
+    const hasWriterAccess = res.locals.roles && res.locals.roles.includes("READER");
+    if (!hasWriterAccess) {
+        return res.render("access-denied", { title: "Access Denied", requiredRole: "Reader" });
+    }
     const categoryFilter = req.query.category || null;
     const page = parseInt(req.query.page) || 1;
     const limit = 6;
@@ -76,7 +85,17 @@ router.get("/my-blogs", async (req, res) => {
     });
 });
 
-router.get("/blogs", async (req, res) => {
+router.get("/blogs", async (req, res) => {    
+
+    if(!res.locals.user){
+        return res.redirect("/login");
+    }
+
+    const hasAccess = res.locals.roles && res.locals.roles.includes("READER");
+    if (!hasAccess) {
+        return res.render("access-denied", { title: "Access Denied", requiredRole: "Reader" });
+    }
+
     const categoryFilter = req.query.category || null;
     const page = parseInt(req.query.page) || 1;
     const limit = 9;
@@ -119,6 +138,10 @@ router.get("/author/:id", async (req, res) => {
 });
 
 router.get("/blog/:id", isAuthenticated, async (req, res) => {
+    const hasAccess = res.locals.roles && res.locals.roles.includes("READER");
+    if (!hasAccess) {
+        return res.render("access-denied", { title: "Access Denied", requiredRole: "Reader or Writer" });
+    }
     const data = await getBlogByIdService(req.params.id, req);
     if (data.success) {
         res.render("blog-details", { title: data.response?.title, blog: data.response });
@@ -138,7 +161,11 @@ router.get("/admin-dashboard", isAdmin, async (req, res) => {
     });
 });
 
-router.get("/edit-blog/:id", async (req, res) => {
+router.get("/edit-blog/:id", isAuthenticated, async (req, res) => {
+    const hasWriterAccess = res.locals.roles && (res.locals.roles.includes("WRITER") || res.locals.roles.includes("ADMIN") || res.locals.roles.includes("SUPER_ADMIN"));
+    if (!hasWriterAccess) {
+        return res.render("access-denied", { title: "Access Denied", requiredRole: "Writer" });
+    }
 
     const data = await getBlogByIdService(req.params.id, req);
     if (data.success) {

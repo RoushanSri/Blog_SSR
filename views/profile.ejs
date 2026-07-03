@@ -60,12 +60,12 @@
         </span>
 
         <div class="flex flex-wrap gap-2 mt-5">
-            <% locals.user.roles.forEach(role => { %>
+            <% locals.user.roles.forEach(role => {  if(role.isApproved) {%>
                 <span
                     class="px-3 py-1 text-sm font-medium rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border border-blue-200">
                     <%= role.roleName %>
                 </span>
-            <% }) %>
+            <% }}) %>
         </div>
 
     </div>

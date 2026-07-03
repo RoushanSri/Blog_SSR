@@ -140,7 +140,7 @@ const getUserProfileService = async (userId) => {
   try {
     const user = await User.findOne({
       where: { id: userId },
-      attributes: ["id", "username", "createdAt"],
+      attributes: ["id", "username", "createdAt", "aboutMe"],
     });
 
     if (!user) {
@@ -149,13 +149,28 @@ const getUserProfileService = async (userId) => {
 
     const blogCount = await Blog.count({ where: { authorId: userId } });
 
+    const likeCount = await Like.count({
+      include: [
+        {
+          model: Blog,
+          as: "blog",
+          where: {
+            authorId: userId,
+          },
+          attributes: [],
+        },
+      ],
+    });
+
     return {
       success: true,
       data: {
         id: user.id,
         username: user.username,
         createdAt: user.createdAt,
+        aboutMe: user.aboutMe,
         blogCount,
+        likeCount,
       },
     };
   } catch (error) {
