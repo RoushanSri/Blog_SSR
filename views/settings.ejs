@@ -1,0 +1,198 @@
+<%- include('partials/header') %>
+
+<div id="settingsPage" class="max-w-3xl mx-auto w-full animate-fade-in">
+    <div class="mb-8 pb-6">
+        <div class="flex items-center gap-3 mb-3">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight font-[Georgia]">Settings</h1>
+                <p class="text-slate-500 text-sm mt-0.5">Manage your account preferences</p>
+            </div>
+        </div>
+        <div class="w-16 h-1 bg-orange-500 rounded-full mt-4"></div>
+    </div>
+
+    <div class="mb-6">
+        <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
+        <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-b-2xl border border-[#e8c4b8]/30 border-t-0 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-4 h-4 rounded-full bg-[#7E43E2]/30 flex items-center justify-center">
+                </div>
+                <h2 class="text-xl font-bold text-slate-800 font-[Georgia]">Change Username</h2>
+            </div>
+            <form id="changeUsernameForm" class="space-y-4">
+                <div id="usernameSuccess" class="bg-green-50 border border-green-200 text-green-600 p-4 rounded-xl text-sm" style="display:none;"></div>
+                <div id="usernameError" class="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl text-sm" style="display:none;"></div>
+                <div>
+                    <label for="currentUsername" class="block mb-2 text-sm font-semibold text-slate-700">Current Username</label>
+                    <input type="text" id="currentUsername" value="<%= locals.user.username %>" disabled class="w-full p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 cursor-not-allowed">
+                </div>
+                <div>
+                    <label for="newUsername" class="block mb-2 text-sm font-semibold text-slate-700">New Username</label>
+                    <input type="text" id="newUsername" required placeholder="Enter new username" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200">
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button type="submit" class="bg-gradient-to-r from-[#7E43E2] to-[#9B59E8] hover:from-[#6E35D0] hover:to-[#8B49D8] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7E43E2]/50 shadow-md shadow-[#7E43E2]/20 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer text-sm inline-flex items-center gap-2">
+                        Update Username
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
+        <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-b-2xl border border-[#e8c4b8]/30 border-t-0 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-4 h-4 rounded-full bg-green-400/30 flex items-center justify-center">
+                </div>
+                <h2 class="text-xl font-bold text-slate-800 font-[Georgia]">Update About me</h2>
+            </div>
+            <form id="changeAboutMeForm" class="space-y-4">
+                <div id="aboutMeSuccess" class="bg-green-50 border border-green-200 text-green-600 p-4 rounded-xl text-sm" style="display:none;"></div>
+                <div id="aboutMeError" class="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl text-sm" style="display:none;"></div>
+                <div>
+                    <label for="aboutMe" class="block mb-2 text-sm font-semibold text-slate-700">About Me</label>
+                    <textarea id="aboutMe" required placeholder="Tell us about yourself.." class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200"><%- locals.user.aboutMe %></textarea>
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button type="submit" class="bg-gradient-to-r from-green-500 to-green-300 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-600/50 shadow-md shadow-[#7E43E2]/20 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer text-sm inline-flex items-center gap-2">
+                        Update About Me
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
+        <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-b-2xl border border-[#e8c4b8]/30 border-t-0 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-4 h-4 rounded-full bg-[#FF714D]/30 flex items-center justify-center">
+                </div>
+                <h2 class="text-xl font-bold text-slate-800 font-[Georgia]">Change Password</h2>
+            </div>
+            <form id="changePasswordForm" class="space-y-4">
+                <div id="passwordSuccess" class="bg-green-50 border border-green-200 text-green-600 p-4 rounded-xl text-sm" style="display:none;"></div>
+                <div id="passwordError" class="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl text-sm" style="display:none;"></div>
+                <div>
+                    <label for="currentPassword" class="block mb-2 text-sm font-semibold text-slate-700">Current Password</label>
+                    <input type="password" id="currentPassword" required placeholder="Enter current password" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#FF714D] focus:ring-2 focus:ring-[#FF714D]/20 transition-all duration-200">
+                </div>
+                <div>
+                    <label for="newPassword" class="block mb-2 text-sm font-semibold text-slate-700">New Password</label>
+                    <input type="password" id="newPassword" required placeholder="Enter new password (min 8 chars)" minlength="8" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#FF714D] focus:ring-2 focus:ring-[#FF714D]/20 transition-all duration-200">
+                </div>
+                <div>
+                    <label for="confirmNewPassword" class="block mb-2 text-sm font-semibold text-slate-700">Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" required placeholder="Re-enter new password" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#FF714D] focus:ring-2 focus:ring-[#FF714D]/20 transition-all duration-200">
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button type="submit" class="bg-gradient-to-r from-[#FF714D] to-[#FFB347] hover:from-[#e8643f] hover:to-[#f0a73d] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/50 shadow-md shadow-orange-500/20 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer text-sm inline-flex items-center gap-2">
+                        Change Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="request-role" class="mb-6">
+        <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
+        <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-b-2xl border border-[#e8c4b8]/30 border-t-0 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-4 h-4 rounded-full bg-[#FF714D]/30 flex items-center justify-center">
+                </div>
+                <h2 class="text-xl font-bold text-slate-800 font-[Georgia]">Permissions & Roles</h2>
+            </div>
+
+            <div id="roleRequestSuccess" class="bg-green-50 border border-green-200 text-green-600 p-4 rounded-xl text-sm mb-4" style="display:none;"></div>
+            <div id="roleRequestError" class="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl text-sm mb-4" style="display:none;"></div>
+
+            <div class="mb-6">
+                <h3 class="text-sm font-semibold text-slate-500 mb-3">Your Current Roles</h3>
+                <div id="settingsRolesList" class="space-y-2">
+                    <% locals.user.roles.forEach(role => { %>
+                        <div class="flex items-center justify-between p-3 rounded-lg border <%= role.isApproved ? 'bg-green-50/50 border-green-100' : 'bg-orange-50/50 border-orange-100' %>">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full <%= role.isApproved ? 'bg-green-500' : 'bg-orange-500' %>"></div>
+                                <span class="font-semibold text-slate-700"><%= role.roleName %></span>
+                            </div>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-md <%= role.isApproved ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700' %>">
+                                <%= role.isApproved ? 'Approved' : 'Pending' %>
+                            </span>
+                        </div>
+                    <% }) %>
+                    <% if (locals.user.roles.length === 0) { %>
+                        <span class="text-sm text-slate-400">No roles assigned</span>
+                    <% } %>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-semibold text-slate-500 mb-3">Request Additional Roles</h3>
+                <div id="roleRequestButtons" class="flex flex-wrap gap-3">
+                    <% 
+                    const allRoles = ['READER', 'WRITER'];
+                    const userRoleNames = locals.user.roles.map(r => r.roleName);
+                    
+                    allRoles.forEach(roleName => {
+                        const hasRole = locals.user.roles.find(r => r.roleName === roleName);
+                        if (hasRole) {
+                            if (hasRole.isApproved) {
+                    %>
+                                <button disabled class="px-4 py-2 rounded-lg font-medium text-sm border-2 border-slate-200 bg-slate-50 text-slate-400 cursor-not-allowed">
+                                    Already a <%= roleName %>
+                                </button>
+                            <% } else { %>
+                                <button disabled class="px-4 py-2 rounded-lg font-medium text-sm border-2 border-orange-200 bg-orange-50 text-orange-400 cursor-not-allowed">
+                                    <%= roleName %> Request Pending
+                                </button>
+                            <% }
+                        } else { %>
+                            <button onclick="requestRole('<%= roleName %>')" class="px-4 py-2 rounded-lg font-medium text-sm border-2 border-[#7E43E2] text-[#7E43E2] hover:bg-[#7E43E2] hover:text-white transition-all cursor-pointer">
+                                Request <%= roleName %> Access
+                            </button>
+                        <% } 
+                    }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<script>
+    document.getElementById("changeAboutMeForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const aboutMe = document.getElementById("aboutMe").value;
+        const aboutMeError = document.getElementById("aboutMeError");
+        const aboutMeSuccess = document.getElementById("aboutMeSuccess");
+
+        try {
+            const res = await fetch("/user/about-me", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ aboutMe }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                aboutMeSuccess.textContent = data.message;
+                aboutMeSuccess.style.display = "block";
+                aboutMeError.style.display = "none";
+            } else {
+                aboutMeError.textContent = data.message;
+                aboutMeError.style.display = "block";
+                aboutMeSuccess.style.display = "none";
+            }
+        } catch (err) {
+            aboutMeError.textContent = "Something went wrong. Please try again.";
+            aboutMeError.style.display = "block";
+            aboutMeSuccess.style.display = "none";
+        }
+    });
+</script>

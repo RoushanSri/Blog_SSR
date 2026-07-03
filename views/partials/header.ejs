@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | MindScroll</title>
+    <meta name="description" content="MindScroll — A personal blog by Roushan Srivastava. Thoughts, experiments, and insights on tech, design, and culture.">
+    <link rel="stylesheet" href="/css/output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-[#FFF7F3] to-[#F6DCD2] text-slate-800 font-['Inter'] min-h-screen flex flex-col px-4 md:px-12 py-6 antialiased">
+
+    <nav class="bg-[#FEDED4]/80 backdrop-blur-md border border-[#e8c4b8]/50 rounded-2xl shadow-sm shadow-[#7E43E2]/5 animate-fade-in">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-extrabold tracking-tight hover:scale-105 transition-transform duration-200">
+                <span class="text-[#7E43E2]">Mind</span><span class="text-[#FF714D]">Scroll</span>
+            </a>
+
+            <div class="hidden md:flex gap-1 items-center">
+                <a href="/" class="relative px-4 py-2 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all duration-200">Home</a>
+                <% if (locals.user) { %>
+                    <a href="/blogs" class="relative px-4 py-2 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all duration-200">Blogs</a>
+                    <% if (locals.user.roles.some(r => r.roleName === 'WRITER' && r.isApproved)) { %>
+                    <a href="/create-blog" class="relative px-4 py-2 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all duration-200">Create Blog</a>
+                    <% } %>
+                    <a href="/categories" class="relative px-4 py-2 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all duration-200">Categories</a>
+                    <div class="flex items-center gap-3 ml-3">
+                        <div id="avatarContainer" class="relative w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white text-xs font-bold cursor-pointer" id="userAvatar"> <span id="avatar-text"><%= locals.user.username.charAt(0).toUpperCase() %></span>
+                            <div id="avatarDropdown" class="absolute hidden top-10 left-0 w-40 bg-white backdrop-blur-md rounded-xl border-2 border-white/50 flex flex-col gap-2 z-100">
+                                <a href="/profile" class="block px-4 py-2 text-[#FF714D] font-medium rounded-lg hover:bg-[#FF714D]/10 transition-all duration-200 focus:outline-none cursor-pointer">My Profile</a>
+                                <a href="/my-blogs" class="block px-4 py-2 text-[#FF714D] font-medium rounded-lg hover:bg-[#FF714D]/10 transition-all duration-200 focus:outline-none cursor-pointer">My Blogs</a>
+                                <a href="/settings" class="block px-4 py-2 text-[#FF714D] font-medium rounded-lg hover:bg-[#FF714D]/10 transition-all duration-200 focus:outline-none cursor-pointer">Settings</a>
+                                <% if (locals.user.roles.some(r => (r.roleName === 'ADMIN' || r.roleName === 'SUPER_ADMIN') && r.isApproved)) { %>
+                                <a href="/admin-dashboard" class="block px-4 py-2 text-[#FF714D] font-medium rounded-lg hover:bg-[#FF714D]/10 transition-all duration-200 focus:outline-none cursor-pointer">Admin Dashboard</a>
+                                <% } %>
+                                <button id="logoutBtn" class="px-4 py-2 text-left text-[#FF714D] font-medium rounded-lg hover:bg-[#FF714D]/10 transition-all duration-200 focus:outline-none cursor-pointer">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login" class="px-4 py-2 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all duration-200">Login</a>
+                    <a href="/register" class="ml-1 px-5 py-2.5 text-white font-semibold rounded-xl bg-gradient-to-r from-[#7E43E2] to-[#9B59E8] hover:from-[#6E35D0] hover:to-[#8B49D8] shadow-md shadow-[#7E43E2]/25 transition-all duration-200 hover:shadow-lg hover:shadow-[#7E43E2]/30 hover:-translate-y-0.5">Register</a>
+                <% } %>
+            </div>
+
+            <button id="mobileMenuBtn" class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-[#7E43E2]/10 transition-colors cursor-pointer">
+                <span class="block w-6 h-0.5 bg-[#7E43E2] rounded-full transition-transform duration-200" id="hamburger1"></span>
+                <span class="block w-6 h-0.5 bg-[#7E43E2] rounded-full transition-opacity duration-200" id="hamburger2"></span>
+                <span class="block w-6 h-0.5 bg-[#7E43E2] rounded-full transition-transform duration-200" id="hamburger3"></span>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="md:hidden hidden px-6 pb-4 pt-2 border-t border-[#e8c4b8]/40">
+            <div class="flex flex-col gap-1">
+                <a href="/" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">Home</a>
+                <% if (locals.user) { %>
+                    <% if (locals.user.roles.some(r => r.roleName === 'WRITER' && r.isApproved)) { %>
+                    <a href="/create-blog" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">Create Blog</a>
+                    <% } %>
+                    <a href="/categories" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">Categories</a>
+                    <a href="/profile" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">My Profile</a>
+                    <a href="/settings" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">Settings</a>
+                    <% if (locals.user.roles.some(r => (r.roleName === 'ADMIN' || r.roleName === 'SUPER_ADMIN') && r.isApproved)) { %>
+                    <a href="/admin-dashboard" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">Admin Dashboard</a>
+                    <% } %>
+                    <button id="mobileLogoutBtn" class="text-left px-4 py-3 text-[#FF714D] font-medium rounded-lg hover:bg-[#FF714D]/10 transition-all cursor-pointer">Logout</button>
+                <% } else { %>
+                    <a href="/login" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">Login</a>
+                    <a href="/register" class="px-4 py-3 text-[#7E43E2] font-medium rounded-lg hover:bg-[#7E43E2]/10 transition-all">Register</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-2 md:px-6 py-12 flex-grow w-full">

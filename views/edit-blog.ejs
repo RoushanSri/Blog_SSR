@@ -1,0 +1,80 @@
+<%- include('partials/header') %>
+
+<div id="editBlogWrapper" class="max-w-3xl mx-auto w-full px-4 sm:px-0">
+    <% if (locals.user && locals.user.roles.some(r => r.roleName === 'WRITER' && r.isApproved)) { %>
+    <div id="editBlog" class="animate-fade-in">
+        <div class="mb-8 pb-6">
+            <div class="flex items-center gap-3 mb-3">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight font-[Georgia]">Edit Blog</h2>
+                    <p class="text-slate-500 text-sm mt-0.5">Edit your blog</p>
+                </div>
+            </div>
+            <div class="w-16 h-1 bg-orange-500 rounded-full mt-4"></div>
+        </div>
+        
+        <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
+        <form id="editBlogForm" 
+            data-id="<%= blog.id %>"
+        class="space-y-6 bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-b-2xl border border-[#e8c4b8]/30 border-t-0 shadow-lg shadow-[#7E43E2]/5">
+            <div id="editBlogError" class="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl text-sm" style="display: none;"></div>
+            
+            <div>
+                <label for="title" class="block mb-2 text-sm font-semibold text-slate-700">Blog Title</label>
+                <input type="text" id="title" name="title" value="<%= blog.title %>" required placeholder="Enter a catchy title" class="w-full p-4 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200 text-lg font-medium">
+            </div>
+            
+            <div>
+                <label for="category" class="block mb-2 text-sm font-semibold text-slate-700">Category</label>
+                <select id="category" name="category" value="<%= blog.category %>" required class="w-full p-4 rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200 text-base font-medium appearance-none cursor-pointer" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%237E43E2%22 stroke-width=%222%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 d=%22M19 9l-7 7-7-7%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.25rem;">
+                    <option value="" disabled >Pick a category</option>
+                    <option value="Design" <%= blog.category === "Design" ? "selected" : "" %>>Design</option>
+                    <option value="Technology" <%= blog.category === "Technology" ? "selected" : "" %>>Technology</option>
+                    <option value="Art & Culture" <%= blog.category === "Art & Culture" ? "selected" : "" %>>Art & Culture</option>
+                    <option value="Education" <%= blog.category === "Education" ? "selected" : "" %>>Education</option>
+                    <option value="Entertainment" <%= blog.category === "Entertainment" ? "selected" : "" %>>Entertainment</option>
+                    <option value="Lifestyle" <%= blog.category === "Lifestyle" ? "selected" : "" %>>Lifestyle</option>
+                    <option value="Health & Wellness" <%= blog.category === "Health & Wellness" ? "selected" : "" %>>Health & Wellness</option>
+                    <option value="Travel" <%= blog.category === "Travel" ? "selected" : "" %>>Travel</option>
+                </select>
+            </div>
+
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <label for="content" class="text-sm font-semibold text-slate-700">Content</label>
+                    <span id="charCount" class="text-xs text-slate-400 font-mono">0 characters</span>
+                </div>
+                <textarea id="content" name="content" required placeholder="Write your blog content here..." rows="12" class="w-full p-4 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200 leading-relaxed resize-y"><%- blog.content %>
+                </textarea>
+            </div>
+            
+            <div class="flex justify-end gap-4 pt-4 border-t border-[#e8c4b8]/30 mt-6">
+                <a href="/" class="px-6 py-3 rounded-xl font-semibold text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-all duration-200">Cancel</a>
+                <button type="submit" class="bg-gradient-to-r from-[#FF714D] to-[#FFB347] hover:from-[#e8643f] hover:to-[#f0a73d] text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/50 shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-0.5 cursor-pointer inline-flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                    Update Blog
+                </button>
+            </div>
+        </form>
+    </div>
+    <% } else { %>
+    <div id="notWriterMessage" class="animate-fade-in">
+        <div class="max-w-lg mx-auto text-center py-16">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#7E43E2]/10 to-[#FF714D]/10 flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-[#7E43E2]/60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+            </div>
+            <h2 class="text-2xl font-extrabold text-slate-800 font-[Georgia] mb-3">Writer Access Required</h2>
+            <p class="text-slate-500 mb-8 max-w-sm mx-auto">You need Writer permissions to create blog posts. Request access and an admin will review your request.</p>
+            <div id="writerRequestStatus"></div>
+            <a href="/settings#request-role" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-[#7E43E2] to-[#9B59E8] hover:from-[#6E35D0] hover:to-[#8B49D8] shadow-md shadow-[#7E43E2]/25 transition-all duration-300 hover:shadow-lg hover:shadow-[#7E43E2]/30 hover:-translate-y-0.5 cursor-pointer">
+                Request Writer Access in Settings
+            </a>
+            <div class="mt-6">
+                <a href="/" class="text-sm text-slate-400 hover:text-[#7E43E2] transition-colors">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>

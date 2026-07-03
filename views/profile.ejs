@@ -1,0 +1,97 @@
+<%- include('partials/header') %>
+
+<div id="profilePage" class="max-w-6xl mx-auto w-full animate-fade-in">
+    <div class="relative mb-4">
+        <div class="rounded-2xl bg-gradient-to-r from-[#FF714D]/50 to-[#FFB347]/40 backdrop-blur-sm shadow-lg shadow-[#7E43E2]/15 p-6">
+        <div class="flex flex-col md:flex-row items-center md:items-end gap-4 px-2 md:px-6">
+            <div id="profileAvatar" class="w-32 h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-[#7E43E2] to-[#9B59E8] flex items-center justify-center text-white text-4xl md:text-5xl font-extrabold border-4 border-[#FFF7F3] shadow-xl translate-y-16 md:translate-y-20 relative">
+                <%= locals.user.username.charAt(0).toUpperCase() %>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 bg-white rounded-xl shadow-sm">
+        <div class="p-6 pt-20 md:p-16 md:pb-4 flex flex-col gap-1 items-center md:items-start text-center md:text-left">
+            <span class="text-2xl font-bold text-slate-800"><%= locals.user.username || 'Not Found' %></span>
+            <span class="text-md font-semibold text-slate-800"><%= locals.user.email %></span>
+        </div>
+
+        <div class="p-6 pt-0 md:pt-6 pb-4 flex justify-center md:justify-end">
+            <div class="flex flex-col gap-1">
+                <button onclick="window.location.href='/settings'" class="flex gap-2 items-center border-1 border-slate-500/50 rounded-lg p-2 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+                    <span>
+                    <svg fill="#000000" viewBox="0 0 64 64" version="1.1" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect id="Icons" x="-1024" y="0" width="1280" height="800" style="fill:none;"></rect> <g id="Icons1" serif:id="Icons"> <g id="Strike"> </g> <g id="H1"> </g> <g id="H2"> </g> <g id="H3"> </g> <g id="list-ul"> </g> <g id="hamburger-1"> </g> <g id="hamburger-2"> </g> <g id="list-ol"> </g> <g id="list-task"> </g> <g id="trash"> </g> <g id="vertical-menu"> </g> <g id="horizontal-menu"> </g> <g id="sidebar-2"> </g> <g id="Pen"> </g> <g id="Pen1" serif:id="Pen"> <path d="M55.944,51.712l0,4.201l-33.652,-0.027l4.71,-4.174l28.942,0Zm-7.555,-43.712c1.649,0 2.505,0.128 4.752,2.011c2.294,1.921 2.707,3.419 2.803,5.087c0.102,1.795 -0.504,3.976 -2.188,5.681l-31.961,31.961c-0.52,0.475 -0.629,0.45 -0.977,0.553l-10.226,2.557c-1.472,0.299 -2.854,-1.049 -2.55,-2.55l2.557,-10.226c0.1,-0.334 0.133,-0.517 0.553,-0.976c10.696,-10.697 21.195,-21.594 32.09,-32.087c1.421,-1.335 3.497,-2.011 5.147,-2.011Zm-32.375,35.182l-1.477,1.477l-1.566,6.262l6.262,-1.566c0.493,-0.492 0.985,-0.983 1.479,-1.474l-4.698,-4.699Zm30.176,-20.573l-4.802,-4.801l-22.493,22.493l4.712,4.713c7.549,-7.448 15.196,-14.801 22.583,-22.405Zm2.826,-2.936c0.618,-0.648 1.234,-1.298 1.848,-1.951c1.673,-1.826 0.443,-5.454 -2.307,-5.578c-0.056,-0.002 -0.112,-0.002 -0.168,-0.002c-0.861,0.016 -1.699,0.372 -2.312,0.977l-1.807,1.808l4.746,4.746Z" style="fill-rule:nonzero;"></path> </g> <g id="clock"> </g> <g id="external-link"> </g> <g id="hr"> </g> <g id="info"> </g> <g id="warning"> </g> <g id="plus-circle"> </g> <g id="minus-circle"> </g> <g id="vue"> </g> <g id="cog"> </g> <g id="logo"> </g> <g id="radio-check"> </g> <g id="eye-slash"> </g> <g id="eye"> </g> <g id="toggle-off"> </g> <g id="shredder"> </g> <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g> <g id="react"> </g> <g id="check-selected"> </g> <g id="turn-off"> </g> <g id="code-block"> </g> <g id="user"> </g> <g id="coffee-bean"> </g> <g id="coffee-beans"> <g id="coffee-bean1" serif:id="coffee-bean"> </g> </g> <g id="coffee-bean-filled"> </g> <g id="coffee-beans-filled"> <g id="coffee-bean2" serif:id="coffee-bean"> </g> </g> <g id="clipboard"> </g> <g id="clipboard-paste"> </g> <g id="clipboard-copy"> </g> <g id="Layer1"> </g> </g> </g></svg>
+                </span>
+                <span>Edit Profile</span>
+            </button>
+            </div>
+        </div>
+        <div class="col-span-1 md:col-span-2 px-6 md:px-16 pt-0 flex flex-col gap-1 pb-4 text-center md:text-left">
+            <span class="font-semibold text-md text-slate-500">About Me</span>
+            <p class="text-sm font-semibold"><%- locals.user.aboutMe %></p>
+        </div>
+<div class="col-span-1 md:col-span-2 px-6 md:px-16 pb-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+    <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between min-h-36">
+        <span class="text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Posts
+        </span>
+
+        <span class="text-5xl font-bold text-slate-900 transition-colors">
+            <%= locals.user.blogCount %>
+        </span>
+    </div>
+
+    <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between min-h-36">
+        <span class="text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Likes
+        </span>
+
+        <span class="text-5xl font-bold text-slate-900 transition-colors">
+            <%= locals.user.likeCount %>
+        </span>
+    </div>
+
+    <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-6 min-h-36">
+
+        <span class="text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Roles
+        </span>
+
+        <div class="flex flex-wrap gap-2 mt-5">
+            <% locals.user.roles.forEach(role => { %>
+                <span
+                    class="px-3 py-1 text-sm font-medium rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border border-blue-200">
+                    <%= role.roleName %>
+                </span>
+            <% }) %>
+        </div>
+
+    </div>
+
+</div>
+    </div>
+
+    <div class="bg-white/80 backdrop-blur-sm border border-[#e8c4b8]/30 rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-800 mb-4 font-[Georgia]">Quick Actions</h3>
+        <div class="flex flex-wrap gap-3">
+            <a href="/create-blog" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-[#FF714D] to-[#FFB347] hover:from-[#e8643f] hover:to-[#f0a73d] transition-all duration-300 shadow-md shadow-orange-500/20 hover:shadow-lg hover:-translate-y-0.5 text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                Create Blog
+            </a>
+            <a href="/my-blogs" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-[#7E43E2] border-2 border-[#7E43E2]/30 hover:border-[#7E43E2] hover:bg-[#7E43E2]/5 transition-all duration-300 hover:-translate-y-0.5 text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                 View My Blogs
+            </a>
+            <a href="/settings" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-slate-600 border-2 border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition-all duration-300 hover:-translate-y-0.5 text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Settings
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include('partials/footer') %>

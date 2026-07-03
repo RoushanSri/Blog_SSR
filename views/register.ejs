@@ -1,0 +1,60 @@
+<%- include('partials/header') %>
+
+<div class="flex justify-center items-center min-h-[70vh] py-12 animate-fade-in">
+    <div class="w-full max-w-md">
+        <div class="h-1.5 bg-gradient-to-r from-[#FF714D] to-[#7E43E2] rounded-t-2xl"></div>
+
+        <div class="bg-white/80 backdrop-blur-sm p-6 sm:p-10 rounded-b-2xl rounded-t-none border border-[#e8c4b8]/30 border-t-0 shadow-xl shadow-[#7E43E2]/5">
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FF714D] to-[#FFB347] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/25">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-800 font-[Georgia]">Create an Account</h2>
+                <p class="text-slate-500 mt-2">Join our community today</p>
+            </div>
+            
+            <form id="registerForm" class="space-y-5">
+                <div id="registerError" class="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl text-sm" style="display: none;"></div>
+                
+                <div>
+                    <label for="username" class="block mb-2 text-sm font-semibold text-slate-700">User Name</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your user name" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200">
+                </div>
+
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-semibold text-slate-700">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200">
+                </div>
+                
+                <div>
+                    <label for="password" class="block mb-2 text-sm font-semibold text-slate-700">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Create a password" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200">
+                </div>
+                <div>
+                    <label for="confirmPassword" class="block mb-2 text-sm font-semibold text-slate-700">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#7E43E2] focus:ring-2 focus:ring-[#7E43E2]/20 transition-all duration-200">
+                </div>
+
+                <div>
+                    <label for="role" class="block mb-2 text-sm font-semibold text-slate-700">Role</label>
+                    <div class="relative">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="role" value="reader" id="reader" class="form-checkbox h-5 w-5 text-[#7E43E2]">
+                            <span class="text-slate-700">Reader</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="role" value="writer" id="writer" class="form-checkbox h-5 w-5 text-[#7E43E2]">
+                            <span class="text-slate-700">Writer</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-[#FF714D] to-[#FFB347] hover:from-[#e8643f] hover:to-[#f0a73d] text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400/50 shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-0.5 cursor-pointer mt-2">Register</button>
+            </form>
+            
+            <p class="text-center mt-8 text-sm text-slate-500">Already have an account? <a href="/login" class="text-[#7E43E2] hover:text-[#6E35D0] font-semibold hover:underline decoration-2 underline-offset-2 transition-colors">Login here</a></p>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

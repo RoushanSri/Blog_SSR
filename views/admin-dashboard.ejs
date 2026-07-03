@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="/css/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#fcfafa] min-h-screen flex flex-col font-[Inter] text-slate-800 px-4 md:px-12 py-6 antialiased selection:bg-[#7E43E2]/20 selection:text-[#7E43E2]">
+    
+    <%- include('partials/header') %>
+
+    <main class="flex-grow pt-6 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 font-[Georgia] tracking-tight mb-4">
+                    Admin <span class="text-transparent bg-clip-text bg-orange-500">Dashboard</span>
+                </h1>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto font-light">Manage role requests and user permissions.</p>
+            </div>
+
+            <div class="mb-12">
+                <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
+                <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-b-2xl border border-[#e8c4b8]/30 border-t-0 shadow-sm">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-4 h-4 rounded-full bg-purple-200 flex items-center justify-center text-purple-600">
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 font-[Georgia]">Pending Role Requests</h2>
+                    </div>
+
+                    <% if (pendingRequests && pendingRequests.length > 0) { %>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-slate-200">
+                                        <th class="py-4 px-4 font-semibold text-slate-600">User</th>
+                                        <th class="py-4 px-4 font-semibold text-slate-600">Email</th>
+                                        <th class="py-4 px-4 font-semibold text-slate-600">Requested Role</th>
+                                        <th class="py-4 px-4 font-semibold text-slate-600 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% pendingRequests.forEach(request => { %>
+                                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors" id="request-<%= request.id %>">
+                                            <td class="py-4 px-4"><%= request.user.username %></td>
+                                            <td class="py-4 px-4 text-slate-500"><%= request.user.email %></td>
+                                            <td class="py-4 px-4">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    <%= request.roleName %>
+                                                </span>
+                                            </td>
+                                            <td class="py-4 px-4 text-right">
+                                                <button onclick="approveRequest('<%= request.id %>')" class="text-sm bg-green-50 text-green-600 hover:bg-green-100 font-medium py-1.5 px-3 rounded-lg transition-colors mr-2">Accept</button>
+                                                <button onclick="rejectRequest('<%= request.id %>')" class="text-sm bg-red-50 text-red-600 hover:bg-red-100 font-medium py-1.5 px-3 rounded-lg transition-colors">Reject</button>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } else { %>
+                        <div class="text-center py-8 text-slate-500">
+                            <svg class="mx-auto h-12 w-12 text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p>No pending role requests at the moment.</p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <div>
+                <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
+                <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-b-2xl border border-[#e8c4b8]/30 border-t-0 shadow-sm">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-4 h-4 rounded-full bg-blue-200 flex items-center justify-center text-blue-600">
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 font-[Georgia]">User Management</h2>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-200">
+                                    <th class="py-4 px-4 font-semibold text-slate-600">User</th>
+                                    <th class="py-4 px-4 font-semibold text-slate-600">Email</th>
+                                    <th class="py-4 px-4 font-semibold text-slate-600">Roles</th>
+                                    <th class="py-4 px-4 font-semibold text-slate-600 text-right">Actions</th>
+                                    <th class="py-4 px-4 font-semibold text-slate-600 text-right"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach(user => { %>
+                                    <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                        <td class="py-4 px-4"><%= user.username %></td>
+                                        <td class="py-4 px-4 text-slate-500"><%= user.email %></td>
+                                        <td class="py-4 px-4 flex flex-wrap gap-1">
+                                            <% if (user.roles && user.roles.length > 0) { %>
+                                                <% user.roles.forEach(role => { %>
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700">
+                                                        <%= role.roleName %>
+                                                        <% if (role.roleName !== 'ADMIN' && role.roleName !== 'SUPER_ADMIN') { %>
+                                                            <button onclick="revokeRole('<%= user.id %>', '<%= role.roleName %>')" class="ml-1.5 text-slate-400 hover:text-red-500" title="Revoke role">
+                                                                &times;
+                                                            </button>
+                                                        <% } %>
+                                                    </span>
+                                                <% }) %>
+                                            <% } else { %>
+                                                <span class="text-slate-400 text-sm italic">None</span>
+                                            <% } %>
+                                        </td>
+                                        <td class="py-4 px-4 text-right">
+                                            <% 
+                                                const hasAdmin = user.roles && user.roles.some(r => r.roleName === 'ADMIN' || r.roleName === 'SUPER_ADMIN');
+                                                if (!hasAdmin) { 
+                                            %>
+                                                <button onclick="assignAdmin('<%= user.id %>')" class="text-sm cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium py-1.5 px-3 rounded-lg transition-all shadow-sm">
+                                                    Assign Admin
+                                                </button>
+                                            <% } else { %>
+                                                <span class="text-sm text-slate-400 font-medium italic">Is Admin</span>
+                                            <% } %>
+                                        </td>
+                                        <td class="py-4 px-4 text-right">
+                                            <%
+                                            if(!hasAdmin) { %>
+                                            <button onclick="deleteUser('<%= user.id %>')" class="text-sm cursor-pointer bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 text-white font-medium py-1.5 px-3 rounded-lg transition-all shadow-sm">
+                                                Delete User
+                                            </button>
+                                            <% } %> 
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        async function approveRequest(requestId) {
+            if (!confirm("Are you sure you want to approve this role request?")) return;
+            try {
+                const res = await fetch('/admin/approve-role', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ requestId })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('Role approved successfully');
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to approve request');
+                }
+            } catch (error) {
+                alert('An error occurred');
+            }
+        }
+
+        async function rejectRequest(requestId) {
+            if (!confirm("Are you sure you want to reject this role request?")) return;
+            try {
+                const res = await fetch('/admin/reject-role', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ requestId })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('Role rejected successfully');
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to reject request');
+                }
+            } catch (error) {
+                alert('An error occurred');
+            }
+        }
+
+        async function assignAdmin(userId) {
+            if (!confirm("Are you sure you want to grant ADMIN privileges to this user? This will also grant WRITER and READER roles.")) return;
+            try {
+                const res = await fetch('/admin/assign-admin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('Admin role assigned successfully');
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to assign admin role');
+                }
+            } catch (error) {
+                alert('An error occurred');
+            }
+        }
+
+        async function revokeRole(userId, roleName) {
+            if (!confirm(`Are you sure you want to revoke the ${roleName} role from this user?`)) return;
+            try {
+                const res = await fetch('/admin/revoke-role', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, roleName })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(`Role ${roleName} revoked successfully`);
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to revoke role');
+                }
+            } catch (error) {
+                alert('An error occurred');
+            }
+        }
+
+        async function deleteUser(userId){
+            if(!confirm("Are you sure you want to delete this user?")) return;
+            try {
+                const res = await fetch(`/admin/delete-user?id=${userId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('User deleted successfully');
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to delete user');
+                }
+            } catch (error) {
+                alert('An error occurred');
+            }
+        }
+    </script>
+</body>
+</html>
