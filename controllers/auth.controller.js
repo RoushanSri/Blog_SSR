@@ -12,7 +12,6 @@ const registerController = async(req, res) => {
 
         res.cookie("accessToken", data.accessToken, {
             httpOnly: true,
-            secure: true,
             sameSite: "strict",
             maxAge: 24 * 60 * 60 * 1000
         })
@@ -36,7 +35,6 @@ const loginController = async(req, res) => {
 
         res.cookie("accessToken", data.accessToken, {
             httpOnly: true,
-            secure: true,
             sameSite: "strict",
             maxAge: 24 * 60 * 60 * 1000
         })
