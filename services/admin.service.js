@@ -92,7 +92,6 @@ const assignAdminService = async (userId) => {
 
 const revokeRoleService = async (userId, roleName) => {
     try {
-        // Prevent revoking roles from an admin or super admin
         const userRoles = await Role.findAll({ where: { userId, isApproved: true } });
         const hasAdminRole = userRoles.some(r => r.roleName === "ADMIN" || r.roleName === "SUPER_ADMIN");
         

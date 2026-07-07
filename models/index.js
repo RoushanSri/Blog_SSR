@@ -1,10 +1,8 @@
-// models/index.js
 import User from "./user.model.js";
 import Blog from "./blog.model.js";
 import Role from "./role.model.js";
 import Like from "./likes.model.js"
 
-// Associations
 User.hasMany(Blog, {
   foreignKey: "authorId",
   as: "blogs",

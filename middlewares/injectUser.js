@@ -14,7 +14,7 @@ const injectUser = async (req, res, next) => {
 
         if (userData.success) {
             res.locals.user = userData.data;
-            res.locals.roles = userData.data.roles.map(role => role.roleName);
+            res.locals.roles = userData.data.roles.filter(role => role.isApproved == true ? role.roleName : null);
         } else {
             res.locals.user = null;
             res.locals.roles = [];
