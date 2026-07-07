@@ -7,7 +7,7 @@
         <p class="mt-4 font-normal text-slate-500 text-lg max-w-3xl animate-slide-up stagger-2" style="opacity:0;">A collection of thoughts, experiments, and insights that don't fit into tweets.</p>
         <div class="mt-12 flex gap-4 animate-slide-up stagger-3" style="opacity:0;">
             <a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-[#FF714D] to-[#FFB347] hover:from-[#e8643f] hover:to-[#f0a73d] transition-all duration-300 shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/30 hover:-translate-y-0.5" href="<%= locals.user ? '/blog/' + (locals.superBlogId || 1) : '/login' %>">
-                Start Readingsdafs
+                Start Readings
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
             <a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-slate-700 border-2 border-slate-300 hover:border-[#7E43E2] hover:text-[#7E43E2] hover:bg-[#7E43E2]/5 transition-all duration-300 hover:-translate-y-0.5" href="<%= locals.user ? '/author/' + (locals.superAdminId || 1) : '/login' %>">View Profile</a>
